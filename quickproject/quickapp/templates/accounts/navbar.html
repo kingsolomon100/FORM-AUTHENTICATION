@@ -1,0 +1,67 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-gradient shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4 d-flex justify-content-center align-items-center " href="/">
+            <span class="d-flex me-2 justify-content-center align-items-center rounded-3 bg-gradient bg-primary text-white" style="width: 32px; height: 32px;">
+                <i class="bi bi-shield-check"></i>
+            </span>
+            <span class="text-dark-emphasis">IBM <span class="text-warning small">Internet.com</span></span>
+        </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#Mydata" aria-controls="Mydata" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse" id="Mydata">
+            <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated %} 
+                <li class="nav-item">
+                    <a class="nav-link fw-bold px-3 {% if request.resolver_match.url_name == 'protected' %}active text-primary text-decoration-line{% endif %}" href="{% url 'protected' %}">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-bold px-3" href="#">
+                        <i class="bi bi-file-earmark-text"></i> Invoice
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            
+            <ul class="navbar-nav align-items-center ">
+                {% if user.is_authenticated %}
+                <li class="nav-item navbar-text text-muted me-3 fw-bold">
+                    You are logged in as {{ user }}:
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle rounded-pill btn btn-light bg-primary-subtle px-3 d-flex align-items-center border" 
+                         href="#" id="UserDropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="rounded-circle bg-primary bg-gradient me-2 d-flex justify-content-center align-items-center fw-semibold text-white" style="width: 28px; height: 28px;">
+                            {{ user.username|slice:":1"|upper }}
+                        </span>
+                        <div class="text-warning fw-semibold">{{ user.username }}</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow" aria-labelledby="UserDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary px-3 me-3" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-warning px-3" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

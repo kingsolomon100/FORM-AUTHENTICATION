@@ -1,0 +1,12 @@
+.hover-lift {
+  /* 1. Smooth the movement */
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+
+.hover-lift:hover {
+  /* 2. Move it up 8 pixels */
+  transform: translateY(-8px);
+  
+  /* 3. Make the shadow darker/larger as it "lifts" off the page */
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}

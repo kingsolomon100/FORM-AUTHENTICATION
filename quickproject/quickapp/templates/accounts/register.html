@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create Account | Invoice System {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-header bg-primary-subtle border pt-4 text-center">
+                <h2 class="fw-bold">Create Your Account</h2>
+                <p class="text-muted">Join the Invoice Management System</p>
+            </div>
+            
+            <div class="card-body px-4 ">
+                <form method="POST" action="{% url 'register' %}" novalidate>
+
+                    {% csrf_token %}
+                   
+                    {{ form|crispy }}
+                    <div class="d-grid mt-4 g-2">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                            Complete Registration
+                        </button>
+                    </div> 
+                          
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <p class="mb-0">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-success h4 fw-bold">Login Here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login | Invoice Management System {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4 mb-4 px-3">
+            <div class="card-body p-6">
+                
+                <div class="text-center mb-4">
+                    <div class="display-4 mb-2">🔏</div>
+                    <h3 class="fw-bold text-primary">Invoice System</h3>
+                    <p class="text-muted">Please sign in to your account</p>
+                </div>
+
+                <form method="POST" action="{% url 'login' %}" novalidate>
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <div class="form-floating">
+                        {{ form|crispy }}
+                    </div>
+                    <div class="text-end mb-4">
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none ">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <div class="d-grid g-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-5">
+                    <p class="mb-3 text-muted">
+                        Don't have an account? 
+                        <a href="{% url 'register' %}" class="fw-bold text-decoration-none">Register here</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
